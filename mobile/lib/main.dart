@@ -12,12 +12,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
+        scaffoldBackgroundColor: Colors.blue[50],
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: Colors.blue[200]!),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: Colors.blue[200]!),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(color: Colors.blue, width: 2),
+          ),
           filled: true,
           fillColor: Colors.white,
+          contentPadding: const EdgeInsets.all(20),
         ),
       ),
       home: LoginScreen(),
@@ -85,61 +99,86 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Icon(
-                  Icons.laptop_mac,
-                  size: 100,
-                  color: Colors.blue,
-                ),
-                const SizedBox(height: 32),
-                const Text(
-                  'Laptop Track',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 32),
-                TextField(
-                  controller: username,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: password,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () => login(context),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        shape: BoxShape.circle,
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: Icon(
+                        Icons.laptop_mac,
+                        size: 80,
+                        color: Colors.blue[700],
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Laptop Track',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue[700],
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    TextField(
+                      controller: username,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        labelStyle: TextStyle(color: Colors.blue[600]),
+                        prefixIcon: Icon(Icons.person, color: Colors.blue[600]),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: TextStyle(color: Colors.blue[600]),
+                        prefixIcon: Icon(Icons.lock, color: Colors.blue[600]),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: () => login(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[700],
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        elevation: 3,
+                      ),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.2,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
@@ -193,40 +232,86 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Laptop Track'),
+        title: const Text(
+          'Laptop Track',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.blue[700],
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome, $username!',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () => logout(context),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
+        child: Card(
+          margin: const EdgeInsets.all(24.0),
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    shape: BoxShape.circle,
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  padding: const EdgeInsets.all(24),
+                  child: Icon(
+                    Icons.person,
+                    size: 70,
+                    color: Colors.blue[700],
                   ),
                 ),
-                child: const Text(
-                  'Logout',
-                  style: TextStyle(fontSize: 16),
+                const SizedBox(height: 24),
+                Text(
+                  'Welcome,',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.blue[700],
+                    letterSpacing: 1.2,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Text(
+                  username,
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue[900],
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton.icon(
+                  onPressed: () => logout(context),
+                  icon: const Icon(Icons.logout, size: 24),
+                  label: const Text(
+                    'Logout',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue[700],
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    elevation: 3,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
