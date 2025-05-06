@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 class LoginScreen extends StatelessWidget {
   final TextEditingController username = TextEditingController();
   final TextEditingController password = TextEditingController();
-  final String apiUrl = 'http://10.0.2.2:8080/auth/login';
+  final String apiUrlLogin = 'http://10.0.2.2:8080/auth/login';
 
   LoginScreen({super.key});
 
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
       });
       debugPrint(body);
       final response = await http.post(
-        Uri.parse(apiUrl),
+        Uri.parse(apiUrlLogin),
         headers: {'Content-Type': 'application/json'},
         body: body,
       );
@@ -149,7 +149,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final String apiUrl = 'http://localhost:8080/logout';
+  final String apiUrlLogout = 'http://localhost:8080/auth/logout';
   final String username;
 
   const HomePage({super.key, required this.username});
@@ -157,23 +157,21 @@ class HomePage extends StatelessWidget {
   Future<void> logout(BuildContext context) async {
     try {
       final response = await http.post(
-        Uri.parse(apiUrl),
+        Uri.parse(apiUrlLogout),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode({
-          'username': username,
-          'device_id': 'MOBILE_001',
+        body: jsonEncode({
+          'username': "admin",
+          'device_id': '1234567890',
           'is_logged_in': false,
         }),
       );
 
       if (response.statusCode == 200) {
-        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => LoginScreen()),
         );
       } else {
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Logout failed. Please try again.'),
