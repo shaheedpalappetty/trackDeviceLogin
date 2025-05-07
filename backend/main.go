@@ -12,7 +12,7 @@ func init() {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal(err)
 	}
-	// ConnectToDB()
+	// ConnectToDB()mobile
 }
 
 func main() {
