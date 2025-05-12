@@ -10,5 +10,6 @@ func authenticationRouter(router *gin.Engine) {
 		r.POST("/login", loginHandler)
 		r.POST("/logout", logoutHandler)
 		r.GET("/checkloggedin/:deviceId", checkLoggedInHandler)
+		r.GET("/get-otp", getOtp)
 	}
 }
