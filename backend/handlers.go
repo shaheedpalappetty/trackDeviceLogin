@@ -83,3 +83,14 @@ func checkLoggedInHandler(c *gin.Context) {
 		"loggedIn": userFound.IsLoggedIn,
 	})
 }
+
+func getOtp(c *gin.Context) {
+	otp := generateOtp()
+	c.JSON(http.StatusOK, gin.H{
+		"otp": otp,
+	})
+}
+
+func generateOtp() string {
+	return fmt.Sprintf("%06d", rand.Intn(1000000)) // 000000 to 999999
+}
