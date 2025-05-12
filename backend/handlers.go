@@ -1,6 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"math/rand"
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -82,4 +86,15 @@ func checkLoggedInHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"loggedIn": userFound.IsLoggedIn,
 	})
+}
+
+func getOtp(c *gin.Context) {
+	otp := generateOtp()
+	c.JSON(http.StatusOK, gin.H{
+		"otp": otp,
+	})
+}
+
+func generateOtp() string {
+	return fmt.Sprintf("%04d", rand.Intn(10000))
 }
